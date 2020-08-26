@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for src/components/Product.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../index.html">All files</a> / <a href="index.html">src/components</a> Product.js
+    </h1>
+    <div class='clearfix'>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { Component } from 'react';
+import { useLocation } from 'react-router-dom';
+import { SideBySideMagnifier } from "react-image-magnifiers";
+&nbsp;
+const Product = <span class="fstat-no" title="function not covered" >()</span> =&gt; {
+  let details = <span class="cstat-no" title="statement not covered" >useLocation().state.product;</span>
+<span class="cstat-no" title="statement not covered" >  console.log(details)</span>
+  let productDetail = <span class="cstat-no" title="statement not covered" >{</span>
+    name: details.name,
+    description: details.description.split(","),
+    price: details.price,
+    image: details.image
+  }
+<span class="cstat-no" title="statement not covered" >  console.log('detail: ', productDetail);</span>
+<span class="cstat-no" title="statement not covered" >  return (</span>
+    &lt;div&gt;
+      &lt;text&gt;Product Detail Page&lt;/text&gt;
+      &lt;br /&gt;
+      {/* {productDetail.name}
+      &lt;br /&gt;
+      {productDetail.description}
+      &lt;br /&gt;
+      {productDetail.price}
+      &lt;br /&gt;
+      {productDetail.image} */}
+      &lt;div style={{ display: 'flex', flexDirection: 'row', marginLeft: 60, marginTop: 30 }}&gt;
+        &lt;img src={productDetail.image} height={700} width='50%' /&gt;
+        {/* &lt;SideBySideMagnifier
+          imageSrc={productDetail.image}
+          imageAlt="image"
+          style={{ width: 600, height: 500 }}
+        /&gt; */}
+        &lt;div style={{ display: 'flex', flexDirection: 'column' }}&gt;
+          &lt;div style={{ marginLeft: 20, fontWeight: 'bold', fontSize: 'larger' }}&gt;{productDetail.name}&lt;/div&gt;
+          &lt;br /&gt;
+          &lt;div style={{ marginLeft: 20, fontWeight: 'bold', fontSize: 'larger' }}&gt;Rs. {productDetail.price}&lt;/div&gt;
+          &lt;div style={{ marginLeft: 20, color: 'green' }}&gt;inclusive of all taxes&lt;/div&gt;
+          &lt;br /&gt;
+          &lt;br /&gt;
+          &lt;div style={{ marginLeft: 20, fontWeight: 'bold' }}&gt;Product Details&lt;/div&gt;
+          &lt;ul&gt;
+            {
+              productDetail.description.map(<span class="fstat-no" title="function not covered" >(o</span>bj, index) =&gt; {
+<span class="cstat-no" title="statement not covered" >                return (</span>
+                  &lt;li style={{color: 'black'}}&gt;
+                    {obj}
+                  &lt;/li&gt;
+                )
+              })
+            }
+          &lt;/ul&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  )
+&nbsp;
+}
+&nbsp;
+export default Product;
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Mon Aug 24 2020 18:57:16 GMT+0530 (IST)
+</div>
+</div>
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../sorter.js"></script>
+</body>
+</html>
