@@ -1,24 +1,30 @@
 import React, { Component } from 'react';
-import Form from 'react-bootstrap/Form';
-import { Col } from 'react-bootstrap';
-import Button from 'react-bootstrap/Button';
-import { Redirect } from 'react-router-dom';
-import axios from 'axios';
 import Inventory from './Inventory';
 
 export default class Home extends React.PureComponent {
   constructor() {
     super();
-    // this.forceUpdateHandler = this.forceUpdateHandler.bind(this);
     this.state = {
       imgFile: ''
     }
 
   }
 
-  // forceUpdateHandler() {
-  //   this.forceUpdate();
-  // };
+  componentWillMount = () => {
+    fetch('https://5f44abf43fb92f0016753a78.mockapi.io/products',
+      {
+        method: 'GET'
+      })
+      .then(async (res) => {
+        let response = await res.json();
+        console.log("res: ", response)
+        this.setState({ 
+          inventPro: response
+        })
+      })
+      .catch((error) => {
+      })
+  }
 
   fileSelected = (file) => {
     this.setState({ productDetails: '' })
@@ -36,27 +42,17 @@ export default class Home extends React.PureComponent {
   }
 
   addPrdouctToInventory = () => {
-    // console.log("uri: ", window.URL.createObjectURL(this.state.fileInput[0])); 
-    // var reader = new FileReader(); 
-    // var fileContent;
-    // reader.readAsDataURL(this.state.fileInput[0]);
-    // var me = this; 
-    // reader.onload = () => { 
-    //   fileContent = reader.result; 
-    //   console.log(fileContent);
-    //   this.setState({
-    //     image: fileContent
-    //   })
-    // }
+    let lastId = this.state.inventPro[this.state.inventPro.length - 1].id
     console.log("image: ", this.state.image);
     let product = 
       {
-        "name": this.state.name,
-        "image": this.state.image,
-        "description": this.state.description,
-        "price": parseInt(this.state.price)
+        "id": (parseInt(lastId) + 1).toString(),
+      "name": this.state.name,
+      "image": this.state.image ? this.state.image : require('../assets/logo.jpg'),
+      "description": this.state.description,
+      "price": parseInt(this.state.price)
       }
-      this.setState({ productDetails: product })
+      this.setState({ productDetails: product, updateTable: true })
      fetch('https://5f44abf43fb92f0016753a78.mockapi.io/products',
       {
         method: 'POST',
@@ -78,7 +74,10 @@ export default class Home extends React.PureComponent {
         price: '',
         fileInput: ''
       })
-    // this.forceUpdateHandler();
+  }
+
+  updateValue = () => {
+    this.setState({updateTable: false})
   }
 
   render() {
@@ -88,7 +87,6 @@ export default class Home extends React.PureComponent {
           <h3 style={{ marginTop: 10, marginLeft: 20 }}>Add a New Product to Inventory</h3>
           <div style={{ display: 'flex', flexDirection: 'row', marginTop: 30 }}>
             <form>
-
               <label htmlFor="name" style={{ marginLeft: 30 }}>Name:</label>
               <input type="text" value={this.state.name} placeholder="Name of Product" required style={{ height: 25, marginLeft: 10, marginTop: 3, borderRadius: 3 }} onChange={(e) => this.setState({ name: e.target.value, productDetails: '' })} />
 
@@ -104,11 +102,7 @@ export default class Home extends React.PureComponent {
             </form>
           </div>
         </div>
-        {/* <Button variant="primary" style={{marginLeft: 650, marginTop: 10}} onClick={() => this.addPrdouctToInventory()} >Show Products</Button> */}
-        {/* {
-          this.state.showProduct && */}
-          <Inventory productDetail={this.state.productDetails} />
-        {/* // } */}
+          <Inventory productDetail={this.state.productDetails} updateTable={this.state.updateTable} update={() => this.updateValue()} />
       </div>
     )
   }

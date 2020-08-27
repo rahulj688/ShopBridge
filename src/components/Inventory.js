@@ -1,57 +1,13 @@
 import React, { Component } from 'react';
 import Table from 'react-bootstrap/Table';
-// import { Table } from 'semantic-ui-react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { RiDeleteBin6Line } from 'react-icons/ri';
 import { Redirect } from 'react-router-dom';
-import image1 from '../assets/image1.jpg';
-import image2 from '../assets/image2.jpg';
-import image3 from '../assets/image3.jpeg';
-import image4 from '../assets/image4.jpg';
-import image5 from '../assets/image5.jpg';
 
 export default class Inventory extends React.Component {
   constructor(props) {
     super(props);
-    // let currentInventory = this.state.inventoryProducts;
-    // let inventory = [
-    //   {
-    //     name: 'Highlander White Slim Fit Casual Shirt',
-    //     description: 'White casual shirt, has a spread collar, a full button placket, a patch pocket, long sleeves with roll-up button tabs, a curved hemline, 100% Cotton, Machine Wash, Long Sleeves, Slim Fit',
-    //     price: '800',
-    //     image: image1
-    //   },
-    //   {
-    //     name: 'Men Red & Black Regular Fit Checked Casual Shirt',
-    //     description: 'Red and black checked casual shirt, has a spread collar, button placket, 1 pocket, long sleeves, curved hem, 100% cotton, Machine-wash, Long Sleeves',
-    //     price: '1000',
-    //     image: image2
-    //   },
-    //   {
-    //     name: 'Men Black Slim Fit Solid Casual Shirt',
-    //     description: 'Black solid casual shirt, has a spread collar, long sleeves, button placket, curved hem, 1 patch pocket, Long Sleeves, Material: 65% cotton 35% linen, Machine Wash',
-    //     price: '900',
-    //     image: image3
-    //   },
-    //   {
-    //     name: 'Men Yellow Printed Round Neck T-Shirt',
-    //     description: 'gym-to-street look, 100% cotton, Machine-wash',
-    //     price: '750',
-    //     image: image4
-    //   },
-    //   {
-    //     name: 'Men Navy Blue Tapered Fit Mid-Rise Clean Look Stretchable Jeans',
-    //     description: 'Navy Blue dark wash 5-pocket mid-rise jeans, clean look, light fade, has a button and zip closure, waistband with belt loops, 98% Cotton 2% Elastane, Machine-wash',
-    //     price: '1300',
-    //     image: image5
-    //   }
-    // ]
-    // if (this.props.productDetail.length > 0) {
-    //   this.props.productDetail.map((obj, i) => {
-    //     inventory.push(obj);
-    //   })
-    // }
     this.state = {
       inventoryProducts: [],
       deletedPrdoucts: []
@@ -66,7 +22,9 @@ export default class Inventory extends React.Component {
       .then(async (res) => {
         let response = await res.json();
         console.log("res: ", response)
-        this.setState({ inventoryProducts: response })
+        this.setState({ 
+          inventoryProducts: response
+        })
       })
       .catch((error) => {
       })
@@ -93,7 +51,6 @@ export default class Inventory extends React.Component {
     const rowsOutput = this.state.inventoryProducts.map((item, id) => {
       return (
         <tr key={id}>
-          {/* <td><input type="radio"></input></td> */}
           <td><div onClick={() => this.navigateToProductDetail(item)}>{id + 1}</div></td>
           <td><img src={item.image} height="100" weight="100" alt="Image Not Available" /></td>
           <td>{item.name}</td>
@@ -108,25 +65,31 @@ export default class Inventory extends React.Component {
   }
 
   handleDelete = (id, product) => {
-    fetch(`https://5f44abf43fb92f0016753a78.mockapi.io/products/${product.id}`,
-      {
-        method: 'DELETE'
-      })
-      .then(async (res) => {
-        let response = await res.json();
-        console.log("res: ", response)
-      })
-      .catch((error) => {
-      })
-    let rowsS = [...this.state.inventoryProducts];
-    rowsS.splice(id, 1);
+    let rows = this.state.inventoryProducts;
+    let newInv = [];
+    rows.map((obj, index) => {
+      if(index !== id) {
+        newInv.push(obj)
+      }
+    })
     this.setState({
-      inventoryProducts: rowsS
+      inventoryProducts: newInv
     });
+    this.props.update();
+    console.log(newInv);
     let del = this.state.deletedPrdoucts;
     del.push(product);
     this.setState({ deletedPrdoucts: del });
     console.log(this.state.deletedPrdoucts)
+    fetch('https://5f44abf43fb92f0016753a78.mockapi.io/products/'+product.id,
+      {
+        method: 'DELETE'
+      })
+      .then(async (res) => {
+        console.log("res: ", res)
+      })
+      .catch((error) => {
+      })
   }
 
   deleteRows = () => {
@@ -134,7 +97,6 @@ export default class Inventory extends React.Component {
       const rowsOutput = this.state.deletedPrdoucts.map((item, id) => {
         return (
           <tr key={id} style={{textAlign: 'center'}}>
-            {/* <td><input type="radio"></input></td> */}
             <td>{id + 1}</td>
             <td><img src={item.image} height="100" weight="100" alt="Image Not Available" /></td>
             <td>{item.name}</td>
@@ -159,6 +121,7 @@ export default class Inventory extends React.Component {
       deletedPrdoucts: del,
       showModal: false
     });
+    this.props.update();
     fetch('https://5f44abf43fb92f0016753a78.mockapi.io/products',
       {
         method: 'POST',
@@ -199,6 +162,7 @@ export default class Inventory extends React.Component {
       showModal: false,
       deletedPrdoucts: []
     })
+    this.props.update();
   }
 
   render() {
@@ -211,7 +175,7 @@ export default class Inventory extends React.Component {
         }
       }} />)
     }
-    if (this.props.productDetail) {
+    if (this.props.productDetail && this.props.updateTable) {
       this.state.inventoryProducts.push(this.props.productDetail)
     }
     return (
@@ -237,17 +201,17 @@ export default class Inventory extends React.Component {
         </Table >
         <Modal show={this.state.showModal} onHide={() => this.setState({ showModal: false })} size="lg">
           <Modal.Header closeButton>
-            <Modal.Title>Modal heading</Modal.Title>
+            <Modal.Title>Deleted Products</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <Table striped bordered hover style={{ marginTop: 20 }}>
+            <Table striped bordered hover style={{ marginTop: 20, textAlign: 'center' }}>
               <thead>
                 <tr>
                   <th>Product ID</th>
                   <th>Product Image</th>
                   <th>Product Name</th>
                   <th>Product Price</th>
-                  <th>Delete</th>
+                  <th>Restore</th>
                 </tr>
               </thead>
               <tbody>{this.deleteRows()}</tbody>

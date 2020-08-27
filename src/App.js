@@ -25,7 +25,6 @@ class App extends Component {
     return (
       <div>
         <div className="App-header">
-          {/* <img src={logo} alt="logo" style={{height: 50, width: 50}} /> */}
           <a href="/">
           <h3 style={{ fontWeight: 'bold', color: 'darkred' }}>ShopBridge</h3>
           </a>

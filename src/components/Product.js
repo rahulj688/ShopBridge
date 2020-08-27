@@ -1,6 +1,5 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { useLocation } from 'react-router-dom';
-import { SideBySideMagnifier } from "react-image-magnifiers";
 
 const Product = () => {
   let details = useLocation().state.product;
@@ -14,23 +13,9 @@ const Product = () => {
   console.log('detail: ', productDetail);
   return (
     <div>
-      <text>Product Detail Page</text>
-      <br />
-      {/* {productDetail.name}
-      <br />
-      {productDetail.description}
-      <br />
-      {productDetail.price}
-      <br />
-      {productDetail.image} */}
-      <div style={{ display: 'flex', flexDirection: 'row', marginLeft: 60, marginTop: 30 }}>
+      <div style={{ display: 'flex', flexDirection: 'row', marginLeft: 60, marginTop: 50 }}>
         <img src={productDetail.image} height={700} width={600} />
-        {/* <SideBySideMagnifier
-          imageSrc={productDetail.image}
-          imageAlt="image"
-          style={{ width: 600, height: 500 }}
-        /> */}
-        <div style={{ display: 'flex', flexDirection: 'column' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', marginLeft: 60 }}>
           <div style={{ marginLeft: 20, fontWeight: 'bold', fontSize: 'larger' }}>{productDetail.name}</div>
           <br />
           <div style={{ marginLeft: 20, fontWeight: 'bold', fontSize: 'larger' }}>Rs. {productDetail.price}</div>
