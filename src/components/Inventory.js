@@ -138,11 +138,11 @@ export default class Inventory extends React.Component {
       })
   }
 
-  restoreAllProducts = () => {
+  restoreAllProducts = async () => {
     let productsAvailable = this.state.inventoryProducts;
-    this.state.deletedPrdoucts.map((obj, index) => {
+    this.state.deletedPrdoucts.map(async (obj, index) => {
       productsAvailable.push(obj);
-      fetch('https://5f44abf43fb92f0016753a78.mockapi.io/products',
+      await fetch('https://5f44abf43fb92f0016753a78.mockapi.io/products',
       {
         method: 'POST',
         headers: {
@@ -150,8 +150,8 @@ export default class Inventory extends React.Component {
         },
         body: JSON.stringify(obj)
       })
-      .then((data) => {
-        console.log('submit: ', data)
+      .then(async (data) => {
+        await console.log('submit: ', data)
       })
       .catch((error) => {
         console.log('err: ', error)

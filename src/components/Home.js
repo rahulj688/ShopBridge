@@ -10,8 +10,8 @@ export default class Home extends React.PureComponent {
 
   }
 
-  componentWillMount = () => {
-    fetch('https://5f44abf43fb92f0016753a78.mockapi.io/products',
+  getCurrentDetails = async () => {
+    await fetch('https://5f44abf43fb92f0016753a78.mockapi.io/products',
       {
         method: 'GET'
       })
@@ -21,6 +21,7 @@ export default class Home extends React.PureComponent {
         this.setState({ 
           inventPro: response
         })
+        return response;
       })
       .catch((error) => {
       })
@@ -41,39 +42,57 @@ export default class Home extends React.PureComponent {
     }
   }
 
-  addPrdouctToInventory = () => {
-    let lastId = this.state.inventPro[this.state.inventPro.length - 1].id
-    console.log("image: ", this.state.image);
-    let product = 
-      {
-        "id": (parseInt(lastId) + 1).toString(),
-      "name": this.state.name,
-      "image": this.state.image ? this.state.image : require('../assets/logo.jpg'),
-      "description": this.state.description,
-      "price": parseInt(this.state.price)
-      }
-      this.setState({ productDetails: product, updateTable: true })
-     fetch('https://5f44abf43fb92f0016753a78.mockapi.io/products',
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(product)
-      })
-      .then((data) => {
-        let d = data;
-        console.log('submit: ', d)
-      })
-      .catch((error) => {
-        console.log('err: ', error)
-      })
-      this.setState({
-        name: '',
-        description: '',
-        price: '',
-        fileInput: ''
-      })
+  addPrdouctToInventory = async () => {
+    // let inventoryData = [];
+    // let length;
+    // fetch('https://5f44abf43fb92f0016753a78.mockapi.io/products',
+    //   {
+    //     method: 'GET'
+    //   })
+    //   .then(async (res) => {
+    //     let response = await res.json();
+    //     console.log("res: ", response)
+    //     inventoryData = response;
+    //     let length  = inventoryData.length;
+    //   })
+    //   .catch((error) => {
+    //   })
+    await this.getCurrentDetails();
+      let lastId = this.state.inventPro.length > 0 ? this.state.inventPro[this.state.inventPro.length - 1].id : 0;
+      console.log("image: ", this.state.image);
+      let product = 
+        {
+          "id": (parseInt(lastId) + 1).toString(),
+        "name": this.state.name,
+        "image": this.state.image ? this.state.image : require('../assets/logo.jpg'),
+        "description": this.state.description,
+        "price": parseInt(this.state.price)
+        }
+        
+       fetch('https://5f44abf43fb92f0016753a78.mockapi.io/products',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(product)
+        })
+        .then((data) => {
+          let d = data;
+          console.log('submit: ', d)
+        })
+        .catch((error) => {
+          console.log('err: ', error)
+        })
+        this.setState({
+          name: '',
+          description: '',
+          price: '',
+          fileInput: '',
+          productDetails: product,
+          updateTable: true
+        })
+    
   }
 
   updateValue = () => {

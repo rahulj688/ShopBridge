@@ -16,7 +16,7 @@ Functionalities Added on FrontEnd:
   a. Name of product
   b. Description of product (Description should be entered separated by comma)
   c. Price of product
-  d. Image (if required)
+  d. Image (if not provided, a sample image will be added)
   e. On clicking Submit  button the product will get added in the inventory as well as the data will get post in the API.
 2. User can see the products present in the inventory on the Home page. The products are fetched from the GET API.
 3. On clicking the Product Id, user will be navigated to the next page displaying the product description in detail.
